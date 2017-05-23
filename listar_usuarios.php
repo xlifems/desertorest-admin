@@ -20,7 +20,7 @@
               <th>APELLIDOS</th>
               <th>NOMBRE</th>
               <th>USUARIO</th>
-              <th>NIVELES COMPLETADOS</th>
+              <th>N° FALTAS</th>
             </tr>
           </thead>
           <tbody id="tbody-usuarios">
@@ -148,7 +148,8 @@
 
   function cargarUsuarios() {
     $.getJSON("ajax/ajax_actions.php", {accion: 'cargar_clientes'}, function(resp){
-      var contenidoTabla =  tableUsuarios(resp);
+      console.log(resp);
+      var contenidoTabla =  tableUsuarios(resp.data);
       $('#tbody-usuarios').append(contenidoTabla);
     });
   }
@@ -193,7 +194,7 @@
       col += '<td>'+item.usuario_apellidos+'</td>';
       col += '<td>'+item.usuario_nombres+'</td>';
       col += '<td>'+item.usuario_nickname+'</td>';
-      col += '<td id="td-nivels-'+item.usuario_id+'"><button onclick="consultarNivelesCompletados('+item.usuario_id+')" type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Ver</button></td>';
+      col += '<td id="td-nivels-'+item.usuario_id+'"><button onclick="consultarFaltas('+item.usuario_id+')" type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Ver</button></td>';
       col += '</tr>';
     });
     return col;
@@ -223,7 +224,7 @@
       type : 'POST',
       data : data,
       success : function(respuesta) {
-        var data = JSON.parse(respuesta);
+        var data = respuesta;
         mostrarEditar();
         $('#usuario_nickname').val(data.usuario_nickname);
         $('#usuario_tidentificacion').val(data.usuario_tidentificacion);
@@ -249,6 +250,21 @@
     $.getJSON("ajax/ajax_actions.php", {accion: 'consultar_progreso', usuario_id : usuario_id }, function(resp){
       $.each(resp, function (i, item) {
         contenido += '<button type="button" class="btn btn-info" style="margin-left: 1px;">'+item.nombre_nivel+'</button> ';
+      });
+      contenido += '</div>';
+      elemento.fadeOut(200, function() {
+        elemento.html(contenido);
+        elemento.fadeIn(1000);
+      });
+    });
+  }
+
+  function consultarFaltas(usuario_id) {
+    var elemento = $('#td-nivels-'+usuario_id);
+    var contenido = '<div class="btn-group" role="group" aria-label="...">';
+    $.getJSON("ajax/ajax_actions.php", {accion: 'consultar_faltas', usuario_id: usuario_id }, function(resp){
+      $.each(resp, function (i, item) {
+        contenido += '<button type="button" class="btn btn-info" style="margin-left: 1px;">'+item.falta_fecha+'</button> ';
       });
       contenido += '</div>';
       elemento.fadeOut(200, function() {

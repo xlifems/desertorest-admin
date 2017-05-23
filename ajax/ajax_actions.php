@@ -1,4 +1,8 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 require '../common/principal.php';
 $principal = new Principal;
 
@@ -42,13 +46,23 @@ switch ($_REQUEST['accion']) {
 	case 'consultar_progreso';
 		$cli = $principal -> consultar_progreso ( $_REQUEST['usuario_id']);
 		echo json_encode($cli);
-		break;		
+		break;
+
+	case 'consultar_faltas';
+		$cli = $principal -> consultar_faltas ($_REQUEST['usuario_id']);
+		echo json_encode($cli);
+		break;
 
 	case 'login_user':
 		$user = trim($_REQUEST['usuario']);
 		$pass = $_REQUEST['password'];
 		$login = $principal -> login_user($user, $pass);
 		echo json_encode($login);
+		break;
+
+	case 'registrar_faltas':
+		$usu = $principal -> registrar_falta($_POST['data']);
+		echo $usu;
 		break;
 
 

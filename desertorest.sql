@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2017 a las 06:28:39
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 5.6.30
+-- Tiempo de generación: 23-05-2017 a las 23:55:43
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,30 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ingles`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ins_faltas`
+--
+
+CREATE TABLE `ins_faltas` (
+  `falta_id` int(100) NOT NULL,
+  `id_usuario` int(100) NOT NULL,
+  `falta_motivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `falta_observacion` text COLLATE utf8_spanish_ci NOT NULL,
+  `falta_fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ins_faltas`
+--
+
+INSERT INTO `ins_faltas` (`falta_id`, `id_usuario`, `falta_motivo`, `falta_observacion`, `falta_fecha`) VALUES
+(3, 6, 'nada', '3', '2017-05-12 05:00:00'),
+(4, 2, 'nada', '5', '2017-05-04 05:00:00'),
+(5, 6, '3', 'ok', '2017-05-10 05:00:00'),
+(6, 5, '2', 'por motivo 2', '2017-05-23 05:00:00');
 
 -- --------------------------------------------------------
 
@@ -1156,10 +1180,11 @@ CREATE TABLE `ins_niveles` (
 --
 
 INSERT INTO `ins_niveles` (`id_nivel`, `nombre_nivel`) VALUES
-(1, 'numeros'),
-(2, 'letras'),
-(3, 'animales'),
-(4, 'numeros_e1');
+(1, 'Primero'),
+(2, 'Segundo'),
+(3, 'Tercero'),
+(4, 'Cuarto'),
+(5, 'Quinto');
 
 -- --------------------------------------------------------
 
@@ -1216,11 +1241,18 @@ CREATE TABLE `ins_usuarios` (
 
 INSERT INTO `ins_usuarios` (`usuario_id`, `usuario_nickname`, `usuario_tidentificacion`, `usuario_identificacion`, `usuario_nombres`, `usuario_apellidos`, `usuario_departamento`, `usuario_ciudad`, `usuario_direccion`, `usuario_barrio`, `usuario_telefono`, `usuario_correo`, `usuario_password`, `usuario_tipo`) VALUES
 (5, 'niño1', '1', '123456', 'Felix Adrian', 'Masa Pico', '6', '205', 'KR 43 A # 16 A SUR - 38', 'chimalito', 2147483647, 'adr@gmail.com', '890504', 'user'),
-(6, 'jove', '1', '123456', 'joverti', 'Doria Pico', '5', '163', 'KR 43 A # 16 A SUR - 38, OF 203 SERVINFORMACION', 'chimalito', 2147483647, 'adr@gmail.com', '1234', 'user');
+(6, 'jove', '1', '123456', 'joverti', 'Doria Pico', '5', '163', 'KR 43 A # 16 A SUR - 38, OF 203 SERVINFORMACION', 'chimalito', 2147483647, 'adr@gmail.com', '1234', 'user'),
+(7, '5', '2', 'vsdfgasdgasg', '2017-05-12', '2017-05-17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `ins_faltas`
+--
+ALTER TABLE `ins_faltas`
+  ADD PRIMARY KEY (`falta_id`);
 
 --
 -- Indices de la tabla `ins_niveles`
@@ -1245,10 +1277,15 @@ ALTER TABLE `ins_usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `ins_faltas`
+--
+ALTER TABLE `ins_faltas`
+  MODIFY `falta_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT de la tabla `ins_niveles`
 --
 ALTER TABLE `ins_niveles`
-  MODIFY `id_nivel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_nivel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `ins_niveles_usuarios`
 --

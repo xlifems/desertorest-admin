@@ -25,6 +25,17 @@ $(document).ready(function (){
 	});
  });
 
+ $("#form_faltas").submit(function(e) {
+ e.preventDefault();
+ var data = $(this).serializeArray();
+ $.post("ajax/ajax_actions.php", {data, accion: "registrar_faltas"}, function(resp){
+    if (resp > 0) {
+      swal("Ok!", "Registro agregado satisfactoriamente", "success");
+      console.log(data);
+    }
+ });
+ });
+
 
 $.getJSON("ajax/ajax_actions.php", {accion: 'cargar_clientes' }, function( data ){
 	var items = [];

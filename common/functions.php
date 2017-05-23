@@ -12,18 +12,9 @@ function route($page){
 		case 'modificar_usuarios':
 		include 'pages/modificar_usuarios.php';
 		break;
-		case 'animals':
-		include 'pages/animals.php';
-		break;
-		case 'vocales':
-		include 'pages/vocales.php';
-		break;
-		case 'numeros':
-		include 'pages/numeros.php';
-		break;
-		case 'numeros_e1':
-		include 'pages/numeros_e1.php';
-		break;
+		case 'registrar_falta':
+		include 'pages/registrar_faltas.php';
+		break;		
 		case 'salir':
 		session_start();
 		session_unset();

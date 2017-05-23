@@ -52,7 +52,8 @@ class Principal {
     try {
       $query = $this->_bdh->prepare("SELECT * FROM ins_usuarios WHERE usuario_tipo = 'user'");
       $query->execute();
-      return $query->fetchAll(PDO::FETCH_ASSOC);
+      $array_usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
+      return $this->respuesta_jsonarray("200", "Informacion encontrada", $array_usuarios);
       $this->_bdh = null;
     } catch (PDOException $e) {
       echo "Error:" . $e->getMessage();
@@ -160,6 +161,45 @@ class Principal {
         echo "Error:" . $e->getMessage();
       }
     }
+
+    function registrar_falta($data){
+      try {
+        session_start();
+        $query = $this->_bdh->prepare("INSERT INTO `ins_faltas`( `id_usuario`, `falta_motivo`, `falta_observacion`,  `falta_fecha`) VALUES (:id_usuario, :falta_motivo, :falta_observacion, :falta_fecha) ");
+        $res = $query->execute(array(
+          'id_usuario'   => $data[0]['value'],
+          'falta_motivo'   => $data[1]['value'],
+          'falta_observacion'  => $data[2]['value'],
+          'falta_fecha'  => $data[3]['value']
+        ));
+        return $res;
+      } catch (PDOException $e) {
+        echo "Error!" . $e->getMessage();
+      }
+    }
+
+    function consultar_faltas($usuario_id)  {
+      try {
+        $sql= "SELECT falta_fecha, falta_motivo, falta_observacion FROM ins_faltas , ins_usuarios WHERE `usuario_id` = :usuario_id AND ins_faltas.id_usuario = ins_usuarios.usuario_id";
+        $query = $this->_bdh->prepare($sql);
+        $query->execute(array('usuario_id' => $usuario_id ));
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+        $this->_bdh = null;
+      } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+      }
+    }
+
+    function respuesta_jsonarray($codigo, $descripcion, $data) {
+      // respuesta en formato JsonArray
+      return array(
+        "codigo" => $codigo,
+        "descripcion" => $descripcion,
+        "data" => $data
+      );
+    }
+
+
 
   }
   ?>

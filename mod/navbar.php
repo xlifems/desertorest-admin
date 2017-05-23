@@ -19,6 +19,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="home.php?page=registrar_usuario">Registrar usuario</a></li>
+            <li><a href="home.php?page=registrar_falta">Registrar falta</a></li>
             <li><a href="listar_usuarios.php">Listar usuario</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
