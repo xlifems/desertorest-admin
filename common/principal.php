@@ -178,6 +178,22 @@ class Principal {
       }
     }
 
+    function registrar_falta_android($id_usuario, $falta_motivo, $falta_observacion, $falta_fecha){
+      try {
+        session_start();
+        $query = $this->_bdh->prepare("INSERT INTO `ins_faltas`( `id_usuario`, `falta_motivo`, `falta_observacion`,  `falta_fecha`) VALUES (:id_usuario, :falta_motivo, :falta_observacion, :falta_fecha) ");
+        $res = $query->execute(array(
+          'id_usuario'   => $id_usuario,
+          'falta_motivo'   => $falta_motivo,
+          'falta_observacion'  => $falta_observacion,
+          'falta_fecha'  => $falta_fecha
+        ));
+        return $res;
+      } catch (PDOException $e) {
+        echo "Error!" . $e->getMessage();
+      }
+    }
+
     function consultar_faltas($usuario_id)  {
       try {
         $sql= "SELECT falta_fecha, falta_motivo, falta_observacion FROM ins_faltas , ins_usuarios WHERE `usuario_id` = :usuario_id AND ins_faltas.id_usuario = ins_usuarios.usuario_id";

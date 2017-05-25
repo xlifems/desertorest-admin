@@ -65,6 +65,12 @@ switch ($_REQUEST['accion']) {
 		echo $usu;
 		break;
 
+	case 'registrar_faltas_android':
+		$json = file_get_contents('php://input');
+		$obj = json_decode($json);
+		$usu = $principal -> registrar_falta_android($obj->{'id_usuario'},$obj->{'falta_motivo'},$obj->{'falta_observacion'},$obj->{'falta_fecha'} );
+		echo $usu;
+		break;
 
 	default:
 		# code...
