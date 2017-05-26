@@ -194,6 +194,22 @@ class Principal {
       }
     }
 
+    function registrar_desertor($id_usuario, $desertor_motivo, $desertor_observacion, $desertor_fecha){
+      try {
+        session_start();
+        $query = $this->_bdh->prepare("INSERT INTO `ins_desertores`( `id_usuario`, `desertor_motivo`, `desertor_observacion`,  `desertor_fecha`) VALUES (:id_usuario, :desertor_motivo, :desertor_observacion, :desertor_fecha) ");
+        $res = $query->execute(array(
+          'id_usuario'   => $id_usuario,
+          'desertor_motivo'   => $desertor_motivo,
+          'desertor_observacion'  => $desertor_observacion,
+          'desertor_fecha'  => $desertor_fecha
+        ));
+        return $res;
+      } catch (PDOException $e) {
+        echo "Error!" . $e->getMessage();
+      }
+    }
+
     function consultar_faltas($usuario_id)  {
       try {
         $sql= "SELECT falta_fecha, falta_motivo, falta_observacion FROM ins_faltas , ins_usuarios WHERE `usuario_id` = :usuario_id AND ins_faltas.id_usuario = ins_usuarios.usuario_id";

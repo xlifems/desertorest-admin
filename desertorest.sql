@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2017 a las 23:55:43
+-- Tiempo de generación: 27-05-2017 a las 00:44:07
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ingles`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ins_desertores`
+--
+
+CREATE TABLE `ins_desertores` (
+  `desertor_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `desertor_motivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `desertor_observacion` text COLLATE utf8_spanish_ci NOT NULL,
+  `desertor_fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -42,7 +56,20 @@ INSERT INTO `ins_faltas` (`falta_id`, `id_usuario`, `falta_motivo`, `falta_obser
 (3, 6, 'nada', '3', '2017-05-12 05:00:00'),
 (4, 2, 'nada', '5', '2017-05-04 05:00:00'),
 (5, 6, '3', 'ok', '2017-05-10 05:00:00'),
-(6, 5, '2', 'por motivo 2', '2017-05-23 05:00:00');
+(6, 5, '2', 'por motivo 2', '2017-05-23 05:00:00'),
+(7, 5, '5', '5', '2000-01-01 05:00:00'),
+(8, 5, '5', '5', '2000-01-01 05:00:00'),
+(9, 5, 'jjjjjj', 'ffffff', '2000-01-01 05:00:00'),
+(10, 5, '5', '5', '2000-01-01 05:00:00'),
+(11, 5, '5', '5', '2000-01-01 05:00:00'),
+(12, 5, 'jopeo', 'jopeo', '2000-01-01 05:00:00'),
+(13, 5, 'si claro', '5', '2000-01-01 05:00:00'),
+(14, 5, 'si claro compadre', '5', '2000-01-01 05:00:00'),
+(15, 5, 'culeo', '5', '2000-01-01 05:00:00'),
+(16, 0, 'Fallecido', '5', '2000-01-01 05:00:00'),
+(17, 6, 'No le gusta el estudio', 'no se si pase', '2000-01-01 05:00:00'),
+(18, 5, 'Se caso', 'adrianmasapico@gmail.com', '2000-01-01 05:00:00'),
+(19, 5, 'Fallecido', '5', '2000-01-01 05:00:00');
 
 -- --------------------------------------------------------
 
@@ -1240,13 +1267,19 @@ CREATE TABLE `ins_usuarios` (
 --
 
 INSERT INTO `ins_usuarios` (`usuario_id`, `usuario_nickname`, `usuario_tidentificacion`, `usuario_identificacion`, `usuario_nombres`, `usuario_apellidos`, `usuario_departamento`, `usuario_ciudad`, `usuario_direccion`, `usuario_barrio`, `usuario_telefono`, `usuario_correo`, `usuario_password`, `usuario_tipo`) VALUES
-(5, 'niño1', '1', '123456', 'Felix Adrian', 'Masa Pico', '6', '205', 'KR 43 A # 16 A SUR - 38', 'chimalito', 2147483647, 'adr@gmail.com', '890504', 'user'),
+(5, 'adrianmasapico@gmail.com', '1', '123456', 'Felix Adrian', 'Masa Pico', '6', '205', 'KR 43 A # 16 A SUR - 38', 'chimalito', 2147483647, 'adrianmasapico@gmail.com', '890504', 'user'),
 (6, 'jove', '1', '123456', 'joverti', 'Doria Pico', '5', '163', 'KR 43 A # 16 A SUR - 38, OF 203 SERVINFORMACION', 'chimalito', 2147483647, 'adr@gmail.com', '1234', 'user'),
 (7, '5', '2', 'vsdfgasdgasg', '2017-05-12', '2017-05-17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `ins_desertores`
+--
+ALTER TABLE `ins_desertores`
+  ADD PRIMARY KEY (`desertor_id`);
 
 --
 -- Indices de la tabla `ins_faltas`
@@ -1277,10 +1310,15 @@ ALTER TABLE `ins_usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `ins_desertores`
+--
+ALTER TABLE `ins_desertores`
+  MODIFY `desertor_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `ins_faltas`
 --
 ALTER TABLE `ins_faltas`
-  MODIFY `falta_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `falta_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `ins_niveles`
 --

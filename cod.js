@@ -41,3 +41,20 @@ RequestParams params = new RequestParams();
        String url = "http://192.168.0.18/desertorest-admin/ajax/ajax_actions.php?accion=registrar_faltas";
        //String url = "http://desertorest.flibdig.com/ajax/ajax_actions.php?";
        RequestHandle requestHandle = client.post(url + params , new AsyncHttpResponseHandler() {
+
+
+
+
+  <item>Elefante</item>
+   <item>Fallecido</item>
+   <item>Desertor</item>
+   <item>Se caso</item>
+   <item>No le gusta el estudio</item>
+   <item>Trabaja</item>
+   <item>No se tiene informacion aun</item>
+   <item>Reprobo el año</item>
+   <item>Violencia familiar</item>
+   <item>Bulling</item>
+   <item>Drogas</item>
+   <item>Expulsado </item>
+   <item>Otra cual</item>
