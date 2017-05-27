@@ -72,6 +72,13 @@ switch ($_REQUEST['accion']) {
 		echo $usu;
 		break;
 
+		case 'registrar_desertor_android':
+			$json = file_get_contents('php://input');
+			$obj = json_decode($json);
+			$usu = $principal -> registrar_desertor($obj->{'id_usuario'},$obj->{'desertor_motivo'},$obj->{'desertor_observacion'},$obj->{'desertor_fecha'} );
+			echo $usu;
+			break;
+
 	default:
 		# code...
 		break;
