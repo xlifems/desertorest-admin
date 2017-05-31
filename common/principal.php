@@ -4,7 +4,7 @@ class Principal {
   function __construct (){
     try {
       //$this->_bdh = new PDO('mysql:host=189.211.180.142;dbname=flibdig_desertorest','flibd_desertor', 'famp52845');
-      $this->_bdh = new PDO('mysql:host=localhost;dbname=desertorest','root', '');
+      $this->_bdh = new PDO('mysql:host=localhost;dbname=ingles','root', '');
       $this->_bdh->exec("SET NAMES utf8");
       $this->_bdh->exec("SET CHARACTER SET utf8");
       $this->_bdh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,18 +16,17 @@ class Principal {
 
   function login_user($user, $password){
     try {
-      $query = $this->_bdh->prepare("SELECT * FROM ins_usuarios WHERE usuario_nickname = :user");
+      $query = $this->_bdh->prepare("SELECT * FROM ins_docentes WHERE docentes_nickname = :user");
       $query->execute(array(':user' => $user));
       if ($query->rowCount() == 1) {
         $row = $query->fetch();
-        $savedPasswordHash = $row['usuario_password'];
+        $savedPasswordHash = $row['docentes_password'];
 
         if($savedPasswordHash == $password){
           session_start();
-          $_SESSION["nickname"]  = $row["usuario_nickname"];
-          $_SESSION["nombres"]   = $row["usuario_nombres"]." ".$row["usuario_apellidos"];
-          $_SESSION["tipo"]      = $row["usuario_tipo"];
-          $_SESSION["id"]        = $row["usuario_id"];
+          $_SESSION["nickname"]  = $row["docentes_nickname"];
+          $_SESSION["nombres"]   = $row["docentes_nombres"]." ".$row["docentes_apellidos"];
+          $_SESSION["id"]        = $row["docentes_id"];
           return $row;
         }
       }
@@ -50,7 +49,7 @@ class Principal {
 
   function load_clientes(){
     try {
-      $query = $this->_bdh->prepare("SELECT * FROM ins_usuarios WHERE usuario_tipo = 'user'");
+      $query = $this->_bdh->prepare("SELECT * FROM ins_usuarios");
       $query->execute();
       $array_usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
       return $this->respuesta_jsonarray("200", "Informacion encontrada", $array_usuarios);
@@ -63,7 +62,7 @@ class Principal {
   function registrar_usuario($data){
     try {
       session_start();
-      $query = $this->_bdh->prepare("INSERT INTO `ins_usuarios` (`usuario_nickname`, `usuario_tidentificacion`, `usuario_identificacion`, `usuario_nombres`, `usuario_apellidos`, `usuario_departamento`, `usuario_ciudad`, `usuario_direccion`, `usuario_barrio`, `usuario_telefono`, `usuario_correo`, `usuario_password`, `usuario_tipo`) VALUES (:usuario_nickname, :usuario_tidentificacion, :usuario_identificacion, :usuario_nombres, :usuario_apellidos, :usuario_departamento, :usuario_ciudad, :usuario_direccion, :usuario_barrio, :usuario_telefono, :usuario_correo, :usuario_password, :usuario_tipo)");
+      $query = $this->_bdh->prepare("INSERT INTO `ins_usuarios` (`usuario_nickname`, `usuario_tidentificacion`, `usuario_identificacion`, `usuario_nombres`, `usuario_apellidos`, `usuario_departamento`, `usuario_ciudad`, `usuario_direccion`, `usuario_barrio`, `usuario_telefono`, `usuario_correo`, `usuario_password`, `usuario_nivel_id`) VALUES (:usuario_nickname, :usuario_tidentificacion, :usuario_identificacion, :usuario_nombres, :usuario_apellidos, :usuario_departamento, :usuario_ciudad, :usuario_direccion, :usuario_barrio, :usuario_telefono, :usuario_correo, :usuario_password, :usuario_nivel_id)");
       $res = $query->execute(array(
         'usuario_nickname'   => $data[0]['value'],
         'usuario_tidentificacion'  => $data[1]['value'],
@@ -77,7 +76,31 @@ class Principal {
         'usuario_telefono'   => $data[9]['value'],
         'usuario_correo'   => $data[10]['value'],
         'usuario_password'   => $data[11]['value'],
-        'usuario_tipo'   => $data[12]['value']
+        'usuario_nivel_id'   => $data[13]['value']
+      ));
+      return $res;
+    } catch (PDOException $e) {
+      echo "Error!" . $e->getMessage();
+    }
+  }
+
+  function registrar_docente($data){
+    try {
+      session_start();
+      $query = $this->_bdh->prepare("INSERT INTO `ins_docentes` (`docentes_nickname`, `docentes_tidentificacion`, `docentes_identificacion`, `docentes_nombres`, `docentes_apellidos`, `docentes_departamento`, `docentes_ciudad`, `docentes_direccion`, `docentes_barrio`, `docentes_telefono`, `docentes_correo`, `docentes_password`) VALUES (:docentes_nickname, :docentes_tidentificacion, :docentes_identificacion, :docentes_nombres, :docentes_apellidos, :docentes_departamento, :docentes_ciudad, :docentes_direccion, :docentes_barrio, :docentes_telefono, :docentes_correo, :docentes_password)");
+      $res = $query->execute(array(
+        'docentes_nickname'   => $data[0]['value'],
+        'docentes_tidentificacion'  => $data[1]['value'],
+        'docentes_identificacion'   => $data[2]['value'],
+        'docentes_nombres'  => $data[3]['value'],
+        'docentes_apellidos'  => $data[4]['value'],
+        'docentes_departamento'   => $data[5]['value'],
+        'docentes_ciudad'   => $data[6]['value'],
+        'docentes_direccion'  => $data[7]['value'],
+        'docentes_barrio'   => $data[8]['value'],
+        'docentes_telefono'   => $data[9]['value'],
+        'docentes_correo'   => $data[10]['value'],
+        'docentes_password'   => $data[11]['value']
       ));
       return $res;
     } catch (PDOException $e) {
@@ -216,6 +239,33 @@ class Principal {
         $query = $this->_bdh->prepare($sql);
         $query->execute(array('usuario_id' => $usuario_id ));
         return $query->fetchAll(PDO::FETCH_ASSOC);
+        $this->_bdh = null;
+      } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+      }
+    }
+
+
+    function count_faltas()  {
+      try {
+        $sql= "SELECT count(*) AS total,  ins_usuarios.usuario_nombres, ins_usuarios.usuario_apellidos, ins_usuarios.usuario_id FROM ins_faltas , ins_usuarios WHERE ins_faltas.id_usuario = ins_usuarios.usuario_id GROUP by ins_usuarios.usuario_id";
+        $query = $this->_bdh->prepare($sql);
+        $query->execute();
+        $array_usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $this->respuesta_jsonarray("200", "Informacion encontrada", $array_usuarios);
+        $this->_bdh = null;
+      } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+      }
+    }
+
+    function consultar_niveles($docentes_id)  {
+      try {
+        $sql= "SELECT * FROM `ins_niveles` WHERE `docentes_id` = :docentes_id ";
+        $query = $this->_bdh->prepare($sql);
+        $query->execute(array('docentes_id' => $docentes_id ));
+        $array_niveles =  $query->fetchAll(PDO::FETCH_ASSOC);
+        return $this->respuesta_jsonarray("200", "Informacion Niveles", $array_niveles);
         $this->_bdh = null;
       } catch (PDOException $e) {
         echo "Error:" . $e->getMessage();

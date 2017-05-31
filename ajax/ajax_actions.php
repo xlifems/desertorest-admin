@@ -23,6 +23,11 @@ switch ($_REQUEST['accion']) {
 		echo $usu;
 		break;
 
+	case 'registrar_docente':
+		$usu = $principal -> registrar_docente($_POST['data']);
+		echo $usu;
+		break;
+
 	case 'modificar_usuario':
 		$usu = $principal -> modificar_usuario($_POST['data'], $_REQUEST['usuario_id']);
 		echo $usu;
@@ -72,12 +77,26 @@ switch ($_REQUEST['accion']) {
 		echo $usu;
 		break;
 
-		case 'registrar_desertor_android':
-			$json = file_get_contents('php://input');
-			$obj = json_decode($json);
-			$usu = $principal -> registrar_desertor($obj->{'id_usuario'},$obj->{'desertor_motivo'},$obj->{'desertor_observacion'},$obj->{'desertor_fecha'} );
-			echo $usu;
-			break;
+	case 'registrar_desertor_android':
+		$json = file_get_contents('php://input');
+		$obj = json_decode($json);
+		$usu = $principal -> registrar_desertor($obj->{'id_usuario'},$obj->{'desertor_motivo'},$obj->{'desertor_observacion'},$obj->{'desertor_fecha'} );
+		echo $usu;
+		break;
+
+	case 'count_faltas_android':
+		$json = file_get_contents('php://input');
+		$obj = json_decode($json);
+		$res = $principal -> count_faltas();
+		echo json_encode($res);
+		break;
+
+	case 'consultar_niveles':
+		$json = file_get_contents('php://input');
+		$obj = json_decode($json);
+		$res = $principal -> consultar_niveles($obj->{'docentes_id'});
+		echo json_encode($res);
+		break;
 
 	default:
 		# code...

@@ -42,8 +42,21 @@ RequestParams params = new RequestParams();
        //String url = "http://desertorest.flibdig.com/ajax/ajax_actions.php?";
        RequestHandle requestHandle = client.post(url + params , new AsyncHttpResponseHandler() {
 
+#####################################################
+
+SELECT COUNT(*) AS total, usuario_nombres, usuario_apellidos
+FROM ins_faltas , ins_usuarios
+WHERE `usuario_id` = 5 AND ins_faltas.id_usuario = ins_usuarios.usuario_id
 
 
+SELECT COUNT(*) AS total, usuario_nombres, usuario_apellidos
+FROM ins_faltas , ins_usuarios
+WHERE ins_faltas.id_usuario = ins_usuarios.usuario_id
+
+
+SELECT count(*) AS total,  usuario_nombres, usuario_apellidos
+FROM ins_faltas , ins_usuarios
+WHERE ins_faltas.id_usuario = ins_usuarios.usuario_id GROUP by ins_usuarios.usuario_id
 
   <item>Elefante</item>
    <item>Fallecido</item>
@@ -58,3 +71,31 @@ RequestParams params = new RequestParams();
    <item>Drogas</item>
    <item>Expulsado </item>
    <item>Otra cual</item>
+
+
+
+
+   CREATE TABLE `ins_docentes` (
+  `docentes_id` integer AUTO_INCREMENT,
+  `docentes_nickname` varchar(255) DEFAULT NULL,
+  `docentes_tidentificacion` varchar(45) DEFAULT NULL,
+  `docentes_identificacion` varchar(45) DEFAULT NULL,
+  `docentes_nombres` varchar(45) DEFAULT NULL,
+  `docentes_apellidos` varchar(45) DEFAULT NULL,
+  `docentes_departamento` varchar(255) DEFAULT NULL,
+  `docentes_ciudad` varchar(45) DEFAULT NULL,
+  `docentes_direccion` varchar(100) DEFAULT NULL,
+  `docentes_barrio` varchar(100) DEFAULT NULL,
+  `docentes_telefono` int(12) DEFAULT NULL,
+  `docentes_correo` varchar(45)DEFAULT NULL,
+  `docentes_password` varchar(255)DEFAULT NULL,
+   PRIMARY KEY (docentes_id)
+
+)
+
+INSERT INTO `ins_docentes` (`docentes_id`, `docentes_nickname`, `docentes_tidentificacion`, `docentes_identificacion`, `docentes_nombres`, `docentes_apellidos`, `docentes_departamento`, `docentes_ciudad`, `docentes_direccion`, `docentes_barrio`, `docentes_telefono`, `docentes_correo`, `docentes_password`)
+VALUES
+(1, 'adrianmasapico@gmail.com', '1', '123456', 'Felix Adrian', 'Masa Pico', '6', '205', 'KR 43 A # 16 A SUR - 38', 'chimalito', 2147483647, 'adrianmasapico@gmail.com', '890504'),
+(2, 'hmejiaespriella22@gmail.com ', '1', '78025654', 'Hernan manuel', 'mejia espriella', '19', '709', 'kr 16 56 98 ', 'alto kenneddy', 300256987, 'hmejiaespriella22@gmail.com', '1234');
+
+SELECT * FROM `ins_niveles` WHERE `docentes_id` = 1

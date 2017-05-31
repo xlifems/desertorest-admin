@@ -66,41 +66,49 @@
 			<input type="text" name="usuario_direccion" class="form-control" required="">
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 			<div class="form-group">
 			<label>Barrio</label>
-			<input type="text" name="usuario_barrio" class="form-control" required="">
+			<input type="text" name="usuario_barrio" id="usuario_barrio" class="form-control" required="">
 			</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-3">
 			<div class="form-group">
 			<label>Telefono</label>
 			<input type="number" name="usuario_telefono" class="form-control" required="">
 			</div>
 		</div>
-		<div class="col-md-3">
+	</div>
+	<div class="row">
+		<div class="col-md-6">
 			<div class="form-group">
 			<label>Correo electronico</label>
 			<input type="email" name="usuario_correo" class="form-control" required="">
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<div class="form-group">
 			<label>Contraseña</label>
 			<input type="text" name="usuario_password" class="form-control" required="">
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<div class="form-group">
 			<label>Tipo de usuario</label>
-			<select name="usuario_tipo" class="form-control" required="">
-				<option value="admin">Administrador</option>
-				<option value="user">Usuario</option>
+			<select id="usuario_tipo" name="usuario_tipo" class="form-control" required="">
+				<option value="est">Estudiante</option>
+				<option value="doc">Docente</option>
 			</select>
 			</div>
-
+		</div>
+		<div class="col-md-2">
+			<div class="form-group">
+			<label>Curso</label>
+			<select name="usuario_nivel_id" class="form-control" required="">
+				<option value="1-01">1-01</option>
+				<option value="2-01">2-01</option>
+			</select>
+			</div>
 		</div>
 	</div>
 	<button type="submit" class="btn btn-default">Registrar</button>

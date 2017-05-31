@@ -2,8 +2,15 @@ $(document).ready(function (){
 
  $("#form_usuario").submit(function(e) {
 	e.preventDefault();
+  var opc = "";
 	var data = $(this).serializeArray();
-	$.post("ajax/ajax_actions.php", {data, accion: "registrar_usuario"}, function(resp){
+  var tipo_usuario = $('#usuario_tipo').val();
+  if (tipo_usuario === "est"){
+    opc ="registrar_usuario";
+  }else {
+    opc ="registrar_docente";
+  }
+	$.post("ajax/ajax_actions.php", {data, accion : opc }, function(resp){
     if (resp > 0) {
       swal("Ok!", "Registro agregado satisfactoriamente", "success");
       console.log(data);

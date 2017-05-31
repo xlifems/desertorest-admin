@@ -18,7 +18,7 @@ $(document).ready(function (){
         cache: false
       }).done(function(resp){
         var data = resp;
-        if(data.usuario_id > 0){
+        if(data.docentes_id > 0){
           window.location.href = "home.php";
         } else {
           sweetAlert("Oops... ", "Usuarios o contraseña incorrecto!", "error");
