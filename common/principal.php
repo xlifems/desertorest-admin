@@ -59,6 +59,21 @@ class Principal {
     }
   }
 
+  function load_estudiantes_android($docentes_id){
+    try {
+      $query = $this->_bdh->prepare("SELECT `usuario_id`,`usuario_nickname`, `usuario_tidentificacion`, `usuario_identificacion`, `usuario_nombres`, `usuario_apellidos`, `usuario_departamento`, `usuario_ciudad`, `usuario_direccion`, `usuario_barrio`, `usuario_telefono`, `usuario_correo`, `usuario_password`, `usuario_nivel_id`
+        FROM ins_usuarios, ins_docentes, ins_niveles
+        WHERE ins_docentes.docentes_id = ins_niveles.docentes_id AND ins_usuarios.usuario_nivel_id=ins_niveles.id_nivel
+        AND ins_docentes.docentes_id = :docentes_id ");
+        $query->execute(array('docentes_id'   => $docentes_id));
+      $array_usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
+      return $this->respuesta_jsonarray("200", "Informacion encontrada", $array_usuarios);
+      $this->_bdh = null;
+    } catch (PDOException $e) {
+      echo "Error:" . $e->getMessage();
+    }
+  }
+
   function registrar_usuario($data){
     try {
       session_start();
@@ -217,12 +232,12 @@ class Principal {
       }
     }
 
-    function registrar_desertor($id_usuario, $desertor_motivo, $desertor_observacion, $desertor_fecha){
+    function registrar_desertor($usuario_id, $desertor_motivo, $desertor_observacion, $desertor_fecha){
       try {
         session_start();
-        $query = $this->_bdh->prepare("INSERT INTO `ins_desertores`( `id_usuario`, `desertor_motivo`, `desertor_observacion`,  `desertor_fecha`) VALUES (:id_usuario, :desertor_motivo, :desertor_observacion, :desertor_fecha) ");
+        $query = $this->_bdh->prepare("INSERT INTO `ins_desertores`( `usuario_id`, `desertor_motivo`, `desertor_observacion`,  `desertor_fecha`) VALUES (:usuario_id, :desertor_motivo, :desertor_observacion, :desertor_fecha) ");
         $res = $query->execute(array(
-          'id_usuario'   => $id_usuario,
+          'usuario_id'   => $usuario_id,
           'desertor_motivo'   => $desertor_motivo,
           'desertor_observacion'  => $desertor_observacion,
           'desertor_fecha'  => $desertor_fecha

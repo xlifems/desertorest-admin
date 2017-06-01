@@ -80,7 +80,7 @@ switch ($_REQUEST['accion']) {
 	case 'registrar_desertor_android':
 		$json = file_get_contents('php://input');
 		$obj = json_decode($json);
-		$usu = $principal -> registrar_desertor($obj->{'id_usuario'},$obj->{'desertor_motivo'},$obj->{'desertor_observacion'},$obj->{'desertor_fecha'} );
+		$usu = $principal -> registrar_desertor($obj->{'usuario_id'},$obj->{'desertor_motivo'},$obj->{'desertor_observacion'},$obj->{'desertor_fecha'} );
 		echo $usu;
 		break;
 
@@ -98,6 +98,12 @@ switch ($_REQUEST['accion']) {
 		echo json_encode($res);
 		break;
 
+	case 'load_estudiantes_android':
+		$json = file_get_contents('php://input');
+		$obj = json_decode($json);
+		$res = $principal -> load_estudiantes_android($obj->{'docentes_id'});
+		echo json_encode($res);
+		break;
 	default:
 		# code...
 		break;

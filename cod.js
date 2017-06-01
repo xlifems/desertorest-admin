@@ -99,3 +99,10 @@ VALUES
 (2, 'hmejiaespriella22@gmail.com ', '1', '78025654', 'Hernan manuel', 'mejia espriella', '19', '709', 'kr 16 56 98 ', 'alto kenneddy', 300256987, 'hmejiaespriella22@gmail.com', '1234');
 
 SELECT * FROM `ins_niveles` WHERE `docentes_id` = 1
+
+
+
+############################################################
+SELECT * FROM ins_usuarios, ins_docentes, ins_niveles
+WHERE ins_docentes.docentes_id = ins_niveles.docentes_id AND ins_usuarios.usuario_nivel_id=ins_niveles.id_nivel
+AND ins_docentes.docentes_id = 1
