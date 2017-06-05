@@ -3,7 +3,8 @@ class Principal {
   private $_bdh;
   function __construct (){
     try {
-      $this->_bdh = new PDO('mysql:host=189.211.180.142;dbname=flibdig_desertorest','flibd_desertor', 'famp52845');
+      //mysql:unix_socket=/cloudsql/INSTANCE_CONNECTION_NAME;
+      $this->_bdh = new PDO('mysql:host=104.155.171.0;dbname=desertorest','root', 'famp52845');
       // $this->_bdh = new PDO('mysql:host=localhost;dbname=desertorest','root', '');
       $this->_bdh->exec("SET NAMES utf8");
       $this->_bdh->exec("SET CHARACTER SET utf8");
