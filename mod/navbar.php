@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="?page=home">Little English</a>
+      <a class="navbar-brand" href="?page=home">DesertorEst</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,9 +18,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="home.php?page=registrar_usuario">Registrar usuario</a></li>
-            <li><a href="home.php?page=registrar_falta">Registrar falta</a></li>
-            <li><a href="listar_usuarios.php">Listar usuario</a></li>
+            <li><a href="home.php?page=registrar_usuario">Registrar Usuarios</a></li>
+            <li><a href="home.php?page=registrar_falta">Asignar fallas</a></li>
+            <li><a href="listar_usuarios.php">Estudiantes</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
